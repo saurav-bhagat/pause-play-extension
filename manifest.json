@@ -1,0 +1,22 @@
+{
+    "manifest_version" : 3,
+    "name" : "Play-Pause",
+    "description" : "Play Pause between study and entertainment",
+    "version": "2",
+    "author" : "Saurav Bhagat",
+
+    "browser_action" : {
+        "default_icon" : "home-icon.png",
+        "default_title" : "Play-Pause",
+        "default_popup" : "popup.html"
+    },
+    "permissions" : [
+        "activeTab",
+        "tabs",
+        "background"
+    ],
+    "background" : {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
+}

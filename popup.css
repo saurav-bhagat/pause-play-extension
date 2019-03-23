@@ -1,0 +1,17 @@
+body{
+    width: 350px;
+    height: 400px;
+    overflow-y: scroll;
+    max-height: 400px;
+    background-color: #262a2d;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+  html{
+    width: 350px;
+    height: 400px;
+    overflow-y: scroll;
+    max-height: 400px;
+  }
