@@ -1,31 +1,58 @@
 
 let prevTabId, prevTabUrl;
-let ytButton = `document.getElementsByClassName('ytp-play-button')[0]`;
 chrome.tabs.getSelected(null, function (tab) {
     prevTabId = tab.id;
     prevTabUrl = tab.url;
 });
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-    console.log("tab changed", prevTabUrl);
-    //previous tab ko pause krna hai and current tab ko play
+    
     if (isYoutube(prevTabUrl)) {
-        console.log("now file will run");
-        if (chrome.tabs.executeScript(prevTabId,
-            { file: script.js }, function (results) { console.log(results); }
-        ));
-        // { file: script }
-        //chrome.tabs.executeScript(prevTabId,
-        //     { code: ytButton + ".click()" }, function (results) { console.log(results); }
-        // );
+        chrome.tabs.executeScript(prevTabId,
+            { file: 'content.js' }, function (results) { console.log(results); }
+        );
     }
-    prevTabId = activeInfo.tabId; //also
-    let currentTab = activeInfo.tabId; //play the current tab video
+    if (isUdemy(prevTabUrl)) {
+        chrome.tabs.executeScript(prevTabId,
+            { file: 'udemy.js' }, function (results) { console.log(results); }
+        );
+    }
+   
     chrome.tabs.getSelected(null, function (tab) {
         prevTabId = tab.id;
         prevTabUrl = tab.url;
+
+        if (isYoutube(prevTabUrl)) {
+            chrome.tabs.executeScript(prevTabId,
+                { file: 'content.js' }, function (results) { console.log(results); }
+            )
+        }
+        if (isUdemy(prevTabUrl)) {
+            chrome.tabs.executeScript(prevTabId,
+                { file: 'udemy.js' }, function (results) { console.log(results); }
+            )
+        }
     });
+
 });
+
+function isUdemy(urll) {
+    let arr = urll.split('/');
+    let url = arr[0] + "//" + arr[2];
+    if ((url == "https://udemy.com" || url == "https://www.udemy.com") && urll.includes('learn') && urll.includes('lecture')) {
+        return true;
+    }
+    return false;
+}
+
+function isYoutube(urll) {
+    let arr = urll.split('/');
+    let url = arr[0] + "//" + arr[2];
+    if ((url == "https://youtube.com" || url == "https://www.youtube.com") && urll.includes('watch')) {
+        return true;
+    }
+    return false;
+}
 
 
 
@@ -67,23 +94,6 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 
 
-function isUdemy(urll) {
-    let arr = urll.split('/');
-    let url = arr[0] + "//" + arr[2];
-    if ((url == "https://udemy.com" || url == "https://ww.udemy.com") && urll.includes('learn') && urll.includes('lecture')) {
-        return true;
-    }
-    return false;
-}
-
-function isYoutube(urll) {
-    let arr = urll.split('/');
-    let url = arr[0] + "//" + arr[2];
-    if ((url == "https://youtube.com" || url == "https://www.youtube.com") && urll.includes('watch')) {
-        return true;
-    }
-    return false;
-}
 
 
 
