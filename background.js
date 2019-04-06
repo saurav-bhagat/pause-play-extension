@@ -18,25 +18,25 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
             if (isYoutube(prevTabUrl)) {
                 chrome.tabs.executeScript(prevTabId,
-                    { file: 'content.js' }, function (results) {  }
+                    { file: 'cs/content.js' }, function (results) {  }
                 );
             }
             else if (isUdemy(prevTabUrl)) {
                 chrome.tabs.executeScript(prevTabId,
-                    { file: 'udemy.js' }, function (results) {  }
+                    { file: 'cs/udemy.js' }, function (results) {  }
                 );
             }
         }
 
         if (isYoutube(currentTabUrl)) {
             chrome.tabs.executeScript(currentTabId,
-                { file: 'content.js' }, function (results) {  }
+                { file: 'cs/content.js' }, function (results) {  }
             )
         }
         else if (isUdemy(currentTabUrl)) {
             console.log("current tab is udemy");
             chrome.tabs.executeScript(currentTabId,
-                { file: 'udemy.js' }, function (results) {  }
+                { file: 'cs/udemy.js' }, function (results) {  }
             )
         }
         prevTabUrl = currentTabUrl;
